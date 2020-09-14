@@ -1,0 +1,17 @@
+services:
+    - docker
+before-install:
+    - docker-compose build
+script:
+    - docker-compose run client sh -c "CI=true npm run test -- --coverage"
+
+after-success:
+    - docker build -t amaurycdr/multi-client ./client
+    - docker build -t amaurycdr/multi-nginx ./nginx
+    - docker build -t amaurycdr/multi-server ./server
+    - docker build -t amaurycdr/multi-worker ./worker
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push -t amaurycdr/multi-client
+    - docker push -t amaurycdr/multi-nginx
+    - docker push -t amaurycdr/multi-server
+    - docker push -t amaurycdr/multi-worker
