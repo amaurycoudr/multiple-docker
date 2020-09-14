@@ -1,0 +1,35 @@
+{
+    "AWSEBDockerrunversion": 2,
+    "ContainerDefinitions": [
+        {
+            "name": "client",
+            "image": "amaurycdr/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "amaurycdr/multi-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["server", "client"]
+        },
+        {
+            "name": "server",
+            "image": "amaurycdr/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "amaurycdr/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        }
+    ]
+}
