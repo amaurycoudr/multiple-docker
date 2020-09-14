@@ -11,7 +11,7 @@ after-success:
     - docker build -t amaurycdr/multi-server ./server
     - docker build -t amaurycdr/multi-worker ./worker
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker push -t amaurycdr/multi-client
-    - docker push -t amaurycdr/multi-nginx
-    - docker push -t amaurycdr/multi-server
-    - docker push -t amaurycdr/multi-worker
+    - docker push amaurycdr/multi-client
+    - docker push amaurycdr/multi-nginx
+    - docker push amaurycdr/multi-server
+    - docker push amaurycdr/multi-worker
