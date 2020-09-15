@@ -17,7 +17,6 @@ after-success:
     - docker push amaurycdr/multi-worker
 
 deploy:
-    edge: true
     provider: elasticbeanstalk
     region: 'us-east-2'
     app: 'multi-docker'
