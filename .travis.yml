@@ -1,11 +1,10 @@
+language: generic
+
 services:
     - docker
-before-install:
-    - docker-compose build
 script:
     - docker-compose run client sh -c "CI=true npm run test -- --coverage"
-
-after-success:
+after_success:
     - docker build -t amaurycdr/multi-client ./client
     - docker build -t amaurycdr/multi-nginx ./nginx
     - docker build -t amaurycdr/multi-server ./server
@@ -22,7 +21,7 @@ deploy:
     app: 'multi-docker'
     env: 'MultiDocker-env-1'
     bucket_name: 'elasticbeanstalk-us-east-2-253036311115'
-    bucket_path: 'docker'
+    bucket_path: 'docker-multi'
     on:
         branch: master
     access_key_id: $AWS_ACCESS_KEY
